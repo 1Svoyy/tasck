@@ -197,7 +197,7 @@ function buildPreview(draft: TaskDraft): string {
 
 // ─── Export ────────────────────────────────────────────────────────────────────
 
-export const taskCreateConversation = createConversation(
+export const taskCreateConversation: any = createConversation(
   createTaskConversation,
   "createTask"
 );
