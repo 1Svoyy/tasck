@@ -1,27 +1,19 @@
 FROM node:20-alpine AS builder
-
 WORKDIR /app
-
 COPY package*.json ./
 COPY prisma ./prisma/
 RUN npm install
-
 COPY tsconfig.json ./
 COPY src ./src
 RUN npm run db:generate && npm run build
 
 FROM node:20-alpine AS runner
-
 RUN apk add --no-cache openssl
-
 WORKDIR /app
-
 COPY package*.json ./
 COPY prisma ./prisma/
 RUN npm install --omit=dev && npm run db:generate
-
 COPY --from=builder /app/dist ./dist
-
 ENV NODE_ENV=production
-
-CMD ["sh", "-c", "npx prisma migrate deploy; echo EXIT_CODE=$?; ls -la dist/; echo '---'; node -e 'try{require(\"./dist/index.js\")}catch(e){console.error(e)}'; echo DONE"]
+# v2 cache bust
+CMD ["sh", "-c", "npx prisma migrate deploy 2>&1; echo '=== STARTING NODE ==='; node dist/index.js 2>&1"]
