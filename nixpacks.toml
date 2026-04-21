@@ -4,10 +4,10 @@ providers = ["node"]
 nixPkgs = ["nodejs_20", "openssl"]
 
 [phases.install]
-cmds = ["npm ci"]
+cmds = ["npm install"]
 
 [phases.build]
 cmds = ["npx prisma generate", "npm run build"]
 
 [start]
-cmd = "npx prisma migrate deploy && node dist/index.js"
+cmd = "npx prisma migrate deploy && echo BOT_STARTING && node dist/index.js"
