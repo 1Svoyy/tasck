@@ -41,7 +41,7 @@ export interface TaskFilter {
 
 export type BotContext = Context &
   SessionFlavor<SessionData> &
-  ConversationFlavor;
+  ConversationFlavor<Context>;
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
