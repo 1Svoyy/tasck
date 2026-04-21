@@ -24,4 +24,4 @@ COPY --from=builder /app/dist ./dist
 
 ENV NODE_ENV=production
 
-CMD ["sh", "-c", "echo '=== MIGRATE ===' && npx prisma migrate deploy && echo '=== START BOT ===' && node dist/index.js 2>&1 || echo '=== CRASHED ==='"]
+CMD ["sh", "-c", "npx prisma migrate deploy; echo EXIT_CODE=$?; ls -la dist/; echo '---'; node -e 'try{require(\"./dist/index.js\")}catch(e){console.error(e)}'; echo DONE"]
