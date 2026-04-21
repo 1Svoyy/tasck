@@ -182,7 +182,7 @@ teamHandler.callbackQuery(/^invite:role:(.+)$/, async (ctx) => {
 
   await ctx.answerCallbackQuery("✅");
   await ctx.editMessageText(
-    `✅ <b>Инвайт</b>\n\nРоль: ${ROLE_LABELS[role]}\nКод: <code>${invite.code}</code>\nИстекает: ${dayjs(invite.expiresAt).format("DD.MM HH:mm")}\n\n🔗 <code>${link}</code>`,
+    `✅ <b>Инвайт</b>\n\nРоль: ${ROLE_LABELS[role as keyof typeof ROLE_LABELS]}\nКод: <code>${invite.code}</code>\nИстекает: ${dayjs(invite.expiresAt).format("DD.MM HH:mm")}\n\n🔗 <code>${link}</code>`,
     { parse_mode: "HTML", reply_markup: new InlineKeyboard().text("🔙 Назад", "team:back") }
   );
 });
