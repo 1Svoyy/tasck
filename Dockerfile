@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma ./prisma/
-RUN npm install
+RUN npm ci
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma ./prisma/
-RUN npm install --omit=dev && npm run db:generate
+RUN npm ci --omit=dev && npm run db:generate
 
 COPY --from=builder /app/dist ./dist
 
