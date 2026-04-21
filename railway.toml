@@ -1,11 +1,7 @@
 [build]
-builder = "NIXPACKS"
-buildCommand = "npm ci && npm run db:generate && npm run build"
+builder = "DOCKERFILE"
 
 [deploy]
-startCommand = "npm run db:migrate && npm start"
+startCommand = "npx prisma migrate deploy 2>&1; echo '=== NODE START ==='; node dist/index.js 2>&1"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
-
-[nixpacks]
-pkgs = ["nodejs_20", "openssl"]
